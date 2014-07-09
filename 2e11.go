@@ -1,5 +1,6 @@
 package main
 
+import "fmt"
 import "./engine"
 
 func main() {
@@ -9,4 +10,9 @@ func main() {
   
   
   g.PrettyPrint()
+  g.GoDown()
+  g.PrettyPrint()
+  
+  fmt.Println(g.Board)
+//   fmt.Println("Score: ", g.Score)
 }
