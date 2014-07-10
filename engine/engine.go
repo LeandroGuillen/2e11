@@ -25,15 +25,6 @@ func NewGame(Size int) Game {
     b[i] = make([]int, Size)   
   }
   
-  b[0][0] = 1
-  b[0][1] = 2
-  b[0][2] = 3
-  b[1][0] = 4
-  b[1][3] = 6
-  b[2][2] = 5
-  b[2][3] = 7
-  b[3][1] = 8
-  
   g := Game{Board: b, Score: 0, Moves: 0, Size: Size}
   return g
 }
