@@ -14,9 +14,9 @@ type direction int
 const (
   _  = iota
   Up direction = 1
-  Down
-  Left
-  Right
+  Down = 2
+  Left = 3
+  Right = 4
 )
 
 func NewGame(Size int) Game {
@@ -29,75 +29,80 @@ func NewGame(Size int) Game {
   b[0][1] = 2
   b[0][2] = 3
   b[1][0] = 4
+  b[1][3] = 6
+  b[2][2] = 5
+  b[2][3] = 7
+  b[3][1] = 8
   
   g := Game{Board: b, Score: 0, Moves: 0, Size: Size}
   return g
 }
 
 func (g *Game) GoUp() {
-  g.move(Up)
+  g.transpose()
+//   fmt.Println("Transposed!")
+//   g.PrettyPrint()
+  for _, val := range g.Board {
+    g.shiftLeft(val)
+  }
+//   fmt.Println("Upped!")
+  g.transpose()
+//   fmt.Println("Transposed!")
 }
 
 func (g *Game) GoDown() {
-  g.move(Down)
+  g.transpose()
+//   fmt.Println("Transposed!")
+//   g.PrettyPrint()
+  for _, val := range g.Board {
+    g.shiftRight(val)
+  }
+//   fmt.Println("Downed!")
+//   g.PrettyPrint()
+  g.transpose()
+//   fmt.Println("Transposed!")
 }
 
 func (g *Game) GoLeft() {
-  g.move(Left)
+  for _, val := range g.Board {
+    g.shiftLeft(val)
+  }
 }
 
 func (g *Game) GoRight() {
-  g.move(Right)
+  for _, val := range g.Board {
+    g.shiftRight(val)
+  }
 }
 
-func (g *Game) boardColumn(columnIndex int) (column []int) {
-    column = make([]int, 0)
-    for _, row := range g.Board {
-        column = append(column, row[columnIndex])
+func (g *Game) transpose() {
+  N := g.Size
+  for n := 0; n < N - 1; n++ {
+    for m := n + 1; m < N; m++ {
+      g.Board[n][m], g.Board[m][n] = g.Board[m][n], g.Board[n][m]
     }
-    return
+  }
 }
 
-func (g *Game) moveColumn(columnIndex int, d direction) []int {
-  // Move in the specified direction
-  // Only if the cell moving into is INSIDE the board
-  // and EMPTY
-  
-  
-  column := g.boardColumn(columnIndex)
-  fmt.Println("column BEFORE: ", column)
-  
-  // Repeat N times
-  for r := 0; r < g.Size; r++ {
-    // Every cell
-    for i := 0; i < g.Size - 1; i++{
-      // Move if its appropiate
-      if column[i + 1] == 0 && i + 1 < g.Size {
-        column[i + 1] = column[i]
-        column[i] = 0
+func (g *Game) shiftRight(array []int) {
+  for n := 0; n < g.Size - 1; n++ {
+    for i := g.Size - 1; i > 0; i-- {
+  //     fmt.Println("i=",i,", i-1=",(i-1))
+      if array[i] == 0 {
+        array[i], array[i - 1] = array[i - 1], array[i]
       }
     }
   }
-  fmt.Println("column AFTER: ", column)
-  
-  return column
 }
 
-func (g *Game) move(d direction) {
-  switch d {
-    case Down:
-       
-      // Traverse by columns
-      for j := 0; j < g.Size; j++ {
-        g.moveColumn(j, d)
+func (g *Game) shiftLeft(array []int) {  
+  for n := 0; n < g.Size - 1; n++ {
+    for i := 0; i < g.Size - 1; i++ {
+//       fmt.Println("i=",i,", i+1=",(i+1))
+      if array[i] == 0 {
+        array[i], array[i + 1] = array[i + 1], array[i]
       }
-    default:
-      for i := 0; i < g.Size; i++ {
-//         g.Board[:][i] = 9
-//         for j := 0; j < g.Size; j++ {
-//               g.Board[i][j]
-//           }
-      }
+    }
   }
 }
 
@@ -109,5 +114,5 @@ func (g *Game) PrettyPrint() {
       }
       fmt.Println()
   } 
-  fmt.Println("Score: ", g.Score, " Moves: ", g.Moves)
+//   fmt.Println("Score: ", g.Score, " Moves: ", g.Moves)
 }
