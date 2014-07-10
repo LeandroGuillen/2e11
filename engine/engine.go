@@ -107,3 +107,16 @@ func (g *Game) PrettyPrint() {
   } 
 //   fmt.Println("Score: ", g.Score, " Moves: ", g.Moves)
 }
+
+func (g *Game) Equals(h *Game) (equal bool) {
+  equal = true
+  equal = equal && g.Size == h.Size
+  
+  for i := 0; i < g.Size; i++ {
+    for j := 0; j < g.Size; j++ {
+      equal = equal && g.Board[i][j] == h.Board[i][j]
+    }
+  } 
+
+  return
+}
