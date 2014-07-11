@@ -53,6 +53,7 @@ func Test4Moves(t *testing.T) {
   g.Board[2][2] = 7
   g.Board[2][3] = 7
   g.Board[3][1] = 8
+  g.PrettyPrint()
   
   e := NewGame(4)
   e.Board[0][0] = 0
@@ -83,5 +84,10 @@ func Test4Moves(t *testing.T) {
     fmt.Println("Got:")
     g.PrettyPrint()
     t.Error("Boards don't match")
+  }
+  
+  expectedScore := 19
+  if g.Score != expectedScore {
+    t.Error("Score mismatch. Expected:", expectedScore, "\nGot:", g.Score)
   }
 }

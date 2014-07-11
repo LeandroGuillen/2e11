@@ -38,8 +38,13 @@ func (g *Game) shift(array []int) {
       if array[i] == 0 {
         array[i], array[i - 1] = array[i - 1], array[i]
       } else if array[i] == array[i - 1] {
+        // Clear the collapsing cell
         array[i - 1] = 0
+        // Increase cell value
         array[i] = array[i] + 1
+        // Update score and moves
+        g.Score = g.Score + array[i]
+        g.Moves = g.Moves + 1
       }
     }
   }
