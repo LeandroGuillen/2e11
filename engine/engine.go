@@ -7,15 +7,17 @@ type Game struct {
   Score int
   Moves int
   Size int
+  Valid bool
 }
 
-func NewGame(Size int) Game {
+func NewGame() Game {
+  Size := 4
   b := make([][]int, Size)
   for i := 0; i < Size; i++ {
     b[i] = make([]int, Size)   
   }
-  
-  g := Game{Board: b, Score: 0, Moves: 0, Size: Size}
+ 
+  g := Game{Board: b, Score: 0, Moves: 0, Size: Size, Valid: true}
   return g
 }
 
@@ -37,6 +39,11 @@ func (g *Game) Equals(h *Game) (equal bool) {
       equal = equal && g.Board[i][j] == h.Board[i][j]
     }
   } 
+  return
+}
 
+func NullGame() (g Game) {
+  g = NewGame()
+  g.Valid = false
   return
 }

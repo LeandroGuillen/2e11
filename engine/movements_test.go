@@ -4,7 +4,7 @@ import "testing"
 import "fmt"
 
 func TestGoRightNoCollapse(t *testing.T) {
-  g := NewGame(4)
+  g := NewGame()
   g.Board[0][0] = 1
   g.Board[0][1] = 2
   g.Board[0][2] = 3
@@ -15,7 +15,7 @@ func TestGoRightNoCollapse(t *testing.T) {
   g.Board[3][1] = 8
   
   
-  e := NewGame(4)
+  e := NewGame()
   e.Board[0][0] = 0 
   e.Board[0][1] = 1 
   e.Board[0][2] = 2 
@@ -45,7 +45,7 @@ func TestGoRightNoCollapse(t *testing.T) {
 }
 
 func TestGoRight(t *testing.T) {
-  g := NewGame(4)
+  g := NewGame()
   g.Board[0][0] = 1
   g.Board[0][1] = 1
   g.Board[0][2] = 3
@@ -55,7 +55,7 @@ func TestGoRight(t *testing.T) {
   g.Board[2][3] = 7
   g.Board[3][1] = 8
   
-  e := NewGame(4)
+  e := NewGame()
   e.Board[0][0] = 0 
   e.Board[0][1] = 0 
   e.Board[0][2] = 2 
