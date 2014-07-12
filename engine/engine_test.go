@@ -5,6 +5,7 @@ import "fmt"
 
 func TestNoCollapse(t *testing.T) {
   g := NewGame()
+  g.ClearBoard()
   g.Board[0][0] = 1
   g.Board[1][3] = 6
   g.Board[2][2] = 5
@@ -17,6 +18,7 @@ func TestNoCollapse(t *testing.T) {
   g.GoUp()
 
   e := NewGame()
+  e.ClearBoard()
   e.Board[0][0] = 0 
   e.Board[0][1] = 0 
   e.Board[0][2] = 5 
@@ -45,6 +47,7 @@ func TestNoCollapse(t *testing.T) {
 
 func Test4Moves(t *testing.T) {
   g := NewGame()
+  g.ClearBoard()
   g.Board[0][0] = 1
   g.Board[0][1] = 1
   g.Board[0][2] = 3
@@ -56,6 +59,7 @@ func Test4Moves(t *testing.T) {
   g.PrettyPrint()
   
   e := NewGame()
+  e.ClearBoard()
   e.Board[0][0] = 0
   e.Board[0][1] = 0 
   e.Board[0][2] = 2 
