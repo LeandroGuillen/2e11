@@ -4,7 +4,7 @@ import "testing"
 import "fmt"
 
 func TestNoCollapse(t *testing.T) {
-  g := NewGame()
+  g := CreateGame()
   g.ClearBoard()
   g.Board[0][0] = 1
   g.Board[1][3] = 6
@@ -17,7 +17,7 @@ func TestNoCollapse(t *testing.T) {
   g.GoDown()
   g.GoUp()
 
-  e := NewGame()
+  e := CreateGame()
   e.ClearBoard()
   e.Board[0][0] = 0 
   e.Board[0][1] = 0 
@@ -46,7 +46,7 @@ func TestNoCollapse(t *testing.T) {
 }
 
 func Test4Moves(t *testing.T) {
-  g := NewGame()
+  g := CreateGame()
   g.ClearBoard()
   g.Board[0][0] = 1
   g.Board[0][1] = 1
@@ -58,7 +58,7 @@ func Test4Moves(t *testing.T) {
   g.Board[3][1] = 8
   g.PrettyPrint()
   
-  e := NewGame()
+  e := CreateGame()
   e.ClearBoard()
   e.Board[0][0] = 0
   e.Board[0][1] = 0 
@@ -71,11 +71,11 @@ func Test4Moves(t *testing.T) {
   e.Board[2][0] = 0 
   e.Board[2][1] = 0 
   e.Board[2][2] = 0 
-  e.Board[2][3] = 9 
+  e.Board[2][3] = 14 
   e.Board[3][0] = 0 
   e.Board[3][1] = 0 
   e.Board[3][2] = 0 
-  e.Board[3][3] = 0
+  e.Board[3][3] = 8
   
   g.GoLeft()
   g.GoRight()
@@ -90,7 +90,7 @@ func Test4Moves(t *testing.T) {
     t.Error("Boards don't match")
   }
   
-  expectedScore := 19
+  expectedScore := 16
   if g.Score != expectedScore {
     t.Error("Score mismatch. Expected:", expectedScore, "\nGot:", g.Score)
   }

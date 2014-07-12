@@ -41,7 +41,7 @@ func (g *Game) shift(array []int) {
         // Clear the collapsing cell
         array[i - 1] = 0
         // Increase cell value
-        array[i] = array[i] + 1
+        array[i] = array[i] * 2
         // Update score and moves
         g.Score = g.Score + array[i]
         g.Moves = g.Moves + 1

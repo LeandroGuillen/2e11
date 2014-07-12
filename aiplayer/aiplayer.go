@@ -1,53 +1,55 @@
 package aiplayer
 
 // import "fmt"
+import "math/rand"
+import "time"
 import "github.com/LeandroGuillen/2e11/engine"
 
 type Player struct {
-  name string
+  Name string
   state Stack
+  Score int
 }
 
-func (p *Player) Init(name string) {
-  p.name = name
-  p.state.Push(engine.NewGame())
+func (p *Player) Init() {
+  g := engine.CreateGame()
+  g.NewGame()
+  p.state.Push(g)
 }
 
-// type Game struct {
-//   Board [][]int
-//   Score int
-//   Moves int
-//   Size int
-// }
-// 
-// func NewGame(Size int) Game {
-//   b := make([][]int, Size)
-//   for i := 0; i < Size; i++ {
-//     b[i] = make([]int, Size)   
-//   }
-//   
-//   g := Game{Board: b, Score: 0, Moves: 0, Size: Size}
-//   return g
-// }
-// 
-// func (g *Game) PrettyPrint() {
-//   for i := 0; i < g.Size; i++ {
-//       for j := 0; j < g.Size; j++ {
-//           fmt.Print(g.Board[i][j], " ")
-//       }
-//       fmt.Println()
-//   } 
-// }
-// 
-// func (g *Game) Equals(h *Game) (equal bool) {
-//   equal = true
-//   equal = equal && g.Size == h.Size
-//   
-//   for i := 0; i < g.Size; i++ {
-//     for j := 0; j < g.Size; j++ {
-//       equal = equal && g.Board[i][j] == h.Board[i][j]
-//     }
-//   } 
-// 
-//   return
-// }
+func (p *Player) Play() {
+  r := rand.New(rand.NewSource(time.Now().UnixNano()))
+  randomValue := r.Intn(4)
+  
+  g := p.state.Pop()
+  h := engine.CreateGame()
+  h = g
+  p.state.Push(g)
+  
+  switch(randomValue) {
+    case 0:
+      h.GoLeft()
+    case 1:
+      h.GoRight()
+    case 2:
+      h.GoUp()
+    default:
+      h.GoDown()
+  }
+  
+  h.GoRight()
+  h.GoUp()
+  h.GoDown()
+  h.GoLeft()
+  h.GoRight()
+  h.GoUp()
+  h.GoDown()
+  h.GoLeft()
+  h.GoRight()
+  h.GoUp()
+  h.GoDown()
+  h.GoLeft()
+  
+  p.state.Push(h)
+  p.Score = h.Score
+}

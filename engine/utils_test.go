@@ -4,7 +4,7 @@ import "testing"
 import "fmt"
 
 func TestReflect(t *testing.T) {
-  g := NewGame()
+  g := CreateGame()
   g.ClearBoard()
   g.Board[0][0] = 1
   g.Board[1][3] = 6
@@ -14,7 +14,7 @@ func TestReflect(t *testing.T) {
   
   g.reflect()
   
-  e := NewGame()
+  e := CreateGame()
   e.ClearBoard()
   e.Board[0][0] = 0
   e.Board[0][1] = 0 
@@ -44,7 +44,7 @@ func TestReflect(t *testing.T) {
 }
 
 func TestTranspose(t *testing.T) {
-  g := NewGame()
+  g := CreateGame()
   g.ClearBoard()
   g.Board[0][0] = 1
   g.Board[1][3] = 6
@@ -54,7 +54,7 @@ func TestTranspose(t *testing.T) {
   
   g.transpose()
   
-  e := NewGame()
+  e := CreateGame()
   e.ClearBoard()
   e.Board[0][0] = 1
   e.Board[0][1] = 0 
