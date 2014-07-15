@@ -1,5 +1,8 @@
 package engine
 
+import "math/rand"
+import "time"
+
 func (g *Game) transpose() {
   N := g.Size
   for n := 0; n < N - 1; n++ {
@@ -16,4 +19,11 @@ func (g *Game) reflect() {
       g.Board[n][m], g.Board[n][N - 1 - m] = g.Board[n][N - 1 - m], g.Board[n][m]
     }
   }
+}
+
+func getNewPos(size int) (x, y int ) { 
+  r := rand.New(rand.NewSource(time.Now().UnixNano()))
+  x = r.Intn(size)
+  y = r.Intn(size)
+  return
 }

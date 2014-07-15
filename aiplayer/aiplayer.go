@@ -1,6 +1,6 @@
 package aiplayer
 
-// import "fmt"
+import "fmt"
 import "math/rand"
 import "time"
 import "github.com/LeandroGuillen/2e11/engine"
@@ -18,38 +18,62 @@ func (p *Player) Init() {
 }
 
 func (p *Player) Play() {
-  r := rand.New(rand.NewSource(time.Now().UnixNano()))
-  randomValue := r.Intn(4)
   
-  g := p.state.Pop()
-  h := engine.CreateGame()
-  h = g
-  p.state.Push(g)
+  finish := false
   
-  switch(randomValue) {
-    case 0:
-      h.GoLeft()
-    case 1:
-      h.GoRight()
-    case 2:
-      h.GoUp()
-    default:
-      h.GoDown()
+  for ; !finish; {
+    // Generate next step (copy current state)
+    current := p.state.Pop()
+    next := engine.Game{}
+    next = current
+    p.state.Push(current)
+    
+    // Decide which way to go
+    var end error
+    switch(getNextMove()) {
+      case 0:
+        end = next.GoLeft()
+        fmt.Println("left")
+      case 1:
+        end = next.GoRight()
+        fmt.Println("right")
+      case 2:
+        end = next.GoUp()
+        fmt.Println("up")
+      default:
+        end = next.GoDown()
+        fmt.Println("down")
+    }
+    
+    // I can't keep playing
+    if end != nil {
+      fmt.Println(end.Error())
+      switch end.Error() {
+        case "Movement not possible!":
+        case "Try again!":
+          continue
+        case "I can't place another value, the game is over!":
+          fmt.Println("Final score:", current.Score)
+          fmt.Println("Board:")
+          current.PrettyPrint()
+          finish = true
+        default:
+          fmt.Println("Unexpected error, finishing game. Score so far:", current.Score)
+          finish = true
+      }
+      
+    // We save the step
+    } else {
+      p.state.Push(next)
+      p.Score = next.Score
+    
+      next.PrettyPrint()
+      fmt.Println("-------")
+    }
   }
-  
-  h.GoRight()
-  h.GoUp()
-  h.GoDown()
-  h.GoLeft()
-  h.GoRight()
-  h.GoUp()
-  h.GoDown()
-  h.GoLeft()
-  h.GoRight()
-  h.GoUp()
-  h.GoDown()
-  h.GoLeft()
-  
-  p.state.Push(h)
-  p.Score = h.Score
+}
+
+func getNextMove() int {
+  r := rand.New(rand.NewSource(time.Now().UnixNano()))
+  return r.Intn(4)
 }
