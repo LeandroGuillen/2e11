@@ -1,9 +1,9 @@
 package aiplayer
 
 import "fmt"
-import "math/rand"
-import "time"
+
 import "github.com/LeandroGuillen/2e11/engine"
+import "github.com/LeandroGuillen/2e11/strategy"
 
 type Player struct {
   Name string
@@ -17,7 +17,7 @@ func (p *Player) Init() {
   p.state.Push(g)
 }
 
-func (p *Player) Play() {
+func (p *Player) Play(strat strategy.Strategy) {
   
   finish := false
   
@@ -28,34 +28,35 @@ func (p *Player) Play() {
     next = current
     p.state.Push(current)
     
-    // Decide which way to go
     var end error
-    switch(getNextMove()) {
+    // Decide which way to go according to strategy
+    nextMove := strat.GetNextMove(next.Board)
+    switch(nextMove) {
       case 0:
         end = next.GoLeft()
-        fmt.Println("left")
+        //fmt.Println("left")
       case 1:
         end = next.GoRight()
-        fmt.Println("right")
+        //fmt.Println("right")
       case 2:
         end = next.GoUp()
-        fmt.Println("up")
+        //fmt.Println("up")
       default:
         end = next.GoDown()
-        fmt.Println("down")
+        //fmt.Println("down")
     }
     
     // I can't keep playing
     if end != nil {
-      fmt.Println(end.Error())
+      //fmt.Println(end.Error())
       switch end.Error() {
         case "Movement not possible!":
         case "Try again!":
           continue
         case "I can't place another value, the game is over!":
-          fmt.Println("Final score:", current.Score)
-          fmt.Println("Board:")
-          current.PrettyPrint()
+          //fmt.Println("Final score:", current.Score)
+          //fmt.Println("Board:")
+          //current.PrettyPrint()
           finish = true
         default:
           fmt.Println("Unexpected error, finishing game. Score so far:", current.Score)
@@ -67,13 +68,8 @@ func (p *Player) Play() {
       p.state.Push(next)
       p.Score = next.Score
     
-      next.PrettyPrint()
-      fmt.Println("-------")
+      //next.PrettyPrint()
+      //fmt.Println("-------")
     }
   }
-}
-
-func getNextMove() int {
-  r := rand.New(rand.NewSource(time.Now().UnixNano()))
-  return r.Intn(4)
 }
