@@ -11,7 +11,7 @@ func main() {
   highest := 0
   lowest := 10000
   average := 0
-  games := 100
+  games := 10
   
   for i := 0; i < games; i++ {
     p.Init()

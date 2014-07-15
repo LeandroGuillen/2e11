@@ -30,7 +30,7 @@ func (p *Player) Play(strat strategy.Strategy) {
     
     var end error
     // Decide which way to go according to strategy
-    nextMove := strat.GetNextMove(next.Board)
+    nextMove := strat.GetNextMove(&next)
     switch(nextMove) {
       case 0:
         end = next.GoLeft()
