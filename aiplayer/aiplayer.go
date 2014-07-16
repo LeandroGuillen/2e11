@@ -17,7 +17,7 @@ func (p *Player) Init() {
   p.state.Push(g)
 }
 
-func (p *Player) Play(strat strategy.Strategy) {
+func (p *Player) Play(strat strategy.Strategy, c chan int) {
   
   finish := false
   
@@ -58,6 +58,11 @@ func (p *Player) Play(strat strategy.Strategy) {
           //fmt.Println("Board:")
           //current.PrettyPrint()
           finish = true
+          
+          // Send score through channel
+          fmt.Println("Producing score (", current.Score, ")...")
+          c <- current.Score
+          
         default:
           fmt.Println("Unexpected error, finishing game. Score so far:", current.Score)
           finish = true
