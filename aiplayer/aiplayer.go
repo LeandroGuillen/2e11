@@ -21,7 +21,7 @@ func (p *Player) Play(strat strategy.Strategy, c chan int) {
   
   finish := false
   
-  for ; !finish; {
+  for !finish {
     // Generate next step (copy current state)
     current := p.state.Pop()
     next := engine.Game{}
