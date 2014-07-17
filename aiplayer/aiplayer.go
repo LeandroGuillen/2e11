@@ -60,7 +60,6 @@ func (p *Player) Play(strat strategy.Strategy, c chan int) {
           finish = true
           
           // Send score through channel
-          fmt.Println("Producing score (", current.Score, ")...")
           c <- current.Score
           
         default:

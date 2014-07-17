@@ -2,12 +2,15 @@ package main
 
 import "fmt"
 import "time"
+// import "math/rand"
 
 import "github.com/LeandroGuillen/2e11/aiplayer"
 import "github.com/LeandroGuillen/2e11/strategy"
 
 func main() {
-  p := aiplayer.Player{Name: "Paco"}
+//   r := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+  
 
   score := 0
   highest := 0
@@ -18,10 +21,14 @@ func main() {
   c := make(chan int)
   
   for i := 0; i < games; i++ {
-    fmt.Println("Playing game", i, "...")
+//     fmt.Println("Playing game", i, "...")
     
-    p.Init()
-    go p.Play(strategy.Random{}, c)
+    go func(c chan int) {
+      p := aiplayer.Player{Name: "Paco"}
+      p.Init()
+//       c <- r.Intn(15000)
+      p.Play(strategy.Random{}, c)
+    }(c)
 
     
     //score = p.Score
@@ -54,7 +61,7 @@ func main() {
     select {
     case score = <- c:
         
-      fmt.Println("Consuming score:", score)
+//       fmt.Println("Consuming score:", score)
       if score > highest {
         highest = score
       }
