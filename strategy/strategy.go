@@ -15,3 +15,7 @@ func (s Random) GetNextMove(g *engine.Game) int {
   r := rand.New(rand.NewSource(time.Now().UnixNano()))
   return r.Intn(4)
 }
+
+func (s Random) Name() string {
+	return "Random"
+}
