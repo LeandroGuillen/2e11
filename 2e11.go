@@ -20,6 +20,9 @@ func main() {
   
   c := make(chan int)
   
+  s := strategy.Random{}
+  fmt.Println("Strategy:", s.Name(), "...")
+
   for i := 0; i < games; i++ {
 //     fmt.Println("Playing game", i, "...")
     
@@ -27,7 +30,7 @@ func main() {
       p := aiplayer.Player{Name: "Paco"}
       p.Init()
 //       c <- r.Intn(15000)
-      p.Play(strategy.Random{}, c)
+      p.Play(s, c)
     }(c)
 
     
