@@ -12,7 +12,7 @@ func main() {
   highest := 0
   lowest := 2000000
   average := 0
-  games := 100
+  games := 1
   
   c := make(chan int)
   
