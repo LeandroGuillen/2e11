@@ -34,16 +34,16 @@ func (p *Player) Play(strat strategy.Strategy, c chan int) {
     switch(nextMove) {
       case 0:
         end = next.GoLeft()
-        //fmt.Println("left")
+        fmt.Println("left")
       case 1:
         end = next.GoRight()
-        //fmt.Println("right")
+        fmt.Println("right")
       case 2:
         end = next.GoUp()
-        //fmt.Println("up")
+        fmt.Println("up")
       default:
         end = next.GoDown()
-        //fmt.Println("down")
+        fmt.Println("down")
     }
     
     // I can't keep playing

@@ -16,7 +16,7 @@ func main() {
   
   c := make(chan int)
   
-  s := strategy.Random{}
+  s := strategy.Recursive{}
   fmt.Println("Strategy:", s.Name(), "...")
 
   for i := 0; i < games; i++ {

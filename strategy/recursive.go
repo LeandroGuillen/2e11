@@ -1,43 +1,55 @@
 package strategy
 
 import "math"
-import "time"
 import "fmt"
 import "github.com/LeandroGuillen/2e11/engine"
 
 type Recursive struct {
 }
 
-func (s Recursive) GetNextMove(g *engine.Game) int {
-  r := rand.New(rand.NewSource(time.Now().UnixNano()))
-  
+func (s Recursive) GetNextMove(g *engine.Game) int {  
   left    := engine.Game{}
-  left    = g
+  left    = *g
   right   := engine.Game{}
-  right   = g
+  right   = *g
   up      := engine.Game{}
-  up      = g
+  up      = *g
   down    := engine.Game{}
-  down    = g
+  down    = *g
   
   left.GoLeft()
   right.GoLeft()
   up.GoLeft()
   down.GoLeft()
   
+  ret := 0
+  
+  maxLR := int(math.Max(float64(left.Score), float64(right.Score)))
+  maxUD := int(math.Max(float64(up.Score),   float64(down.Score)))
+  
+  if left.Score == maxLR {
+    ret = 0
+  } else {
+    ret = 1
+  }
+  if up.Score == maxUD && up.Score > maxLR {
+    ret = 2
+  } else if down.Score == maxUD && down.Score > maxLR {
+    ret = 3
+  }
+  
+  fmt.Println("maxLR:", maxLR)
+  fmt.Println("maxUD:", maxUD)
+  
   fmt.Println("left.Score:", left.Score)
   fmt.Println("right.Score:", right.Score)
   fmt.Println("up.Score:", up.Score)
   fmt.Println("down.Score:", down.Score)
   
-  max := math.Max(math.Max(float64(left.Score),
-                           float64(right.Score)),
-                  math.Max(float64(up.Score),
-                           float64(down.Score)))
   
-  fmt.Println("Max score:", max)
+  //fmt.Println("Max score:", max)
   
-  return 0
+  return ret
 }
 
 func (s Recursive) Name() string {
