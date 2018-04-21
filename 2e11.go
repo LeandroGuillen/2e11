@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/leandroguillen/2e11/aiplayer"
 	"github.com/leandroguillen/2e11/strategy"
-	"time"
 )
 
 func main() {
@@ -19,13 +20,13 @@ func main() {
 	s := strategy.Recursive{}
 	fmt.Println("Strategy:", s.Name(), "...")
 
-	for i := 0; i < games; i++ {
-		go func(c chan int) {
-			p := aiplayer.Player{Name: "Paco"}
-			p.Init()
-			p.Play(s, c)
-		}(c)
-	}
+	// for i := 0; i < games; i++ {
+	// 	go func(c chan int) {
+	p := aiplayer.Player{Name: "Paco"}
+	p.Init()
+	p.Play(s, c)
+	// 	}(c)
+	// }
 
 	for x := 0; x < games; x++ {
 		select {

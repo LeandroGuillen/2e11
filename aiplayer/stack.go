@@ -5,17 +5,19 @@ package aiplayer
 
 import "github.com/leandroguillen/2e11/engine"
 
+// Stack ...
 type Stack struct {
 	top  *Element
 	size int
 }
 
+// Element ...
 type Element struct {
 	value engine.Game
 	next  *Element
 }
 
-// Return the stack's length
+// Len returns the stack's length
 func (s *Stack) Len() int {
 	return s.size
 }
@@ -26,7 +28,7 @@ func (s *Stack) Push(value engine.Game) {
 	s.size++
 }
 
-// Remove the top element from the stack and return it's value
+// Pop removes the top element from the stack and return it's value
 // If the stack is empty, return nil
 func (s *Stack) Pop() (value engine.Game) {
 	if s.size > 0 {
@@ -36,16 +38,3 @@ func (s *Stack) Pop() (value engine.Game) {
 	}
 	return engine.NullGame()
 }
-
-// func main() {
-// 	stack := new(Stack)
-//
-// 	stack.Push("Things")
-// 	stack.Push("and")
-// 	stack.Push("Stuff")
-//
-// 	for stack.Len() > 0 {
-// 		fmt.Printf("%s ", stack.Pop().(string))
-// 	}
-// 	fmt.Println()
-// }

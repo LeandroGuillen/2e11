@@ -9,3 +9,8 @@ Components:
 * **strategy**: contains the different strategies used to solve problem.
   * Random. Pick one direction and go for it.
   * Recursive. Try the four different directions and pick whichever gets the most points. Only one level of recursion. Work in progress.
+
+
+## References
+
+- [The Mathematics of 2048: Optimal Play with Markov Decision Processes](http://jdlm.info/articles/2018/03/18/markov-decision-process-2048.html).
