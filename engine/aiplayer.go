@@ -1,9 +1,6 @@
-package aiplayer
+package engine
 
 import "fmt"
-
-import "github.com/leandroguillen/2e11/engine"
-import "github.com/leandroguillen/2e11/strategy"
 
 // Player ...
 type Player struct {
@@ -14,12 +11,12 @@ type Player struct {
 
 // Init ...
 func (p *Player) Init() {
-	g := engine.NewGame(4)
+	g := NewGame(4)
 	p.state.Push(g)
 }
 
 // Play ...
-func (p *Player) Play(strat strategy.Strategy, c chan int) {
+func (p *Player) Play(strat Strategy, c chan int) {
 
 	finish := false
 
@@ -29,6 +26,8 @@ func (p *Player) Play(strat strategy.Strategy, c chan int) {
 		next := current.Copy()
 		p.state.Push(current)
 
+		current.PrettyPrint()
+
 		var end error
 		var ok bool
 		// Decide which way to go according to strategy
@@ -36,12 +35,22 @@ func (p *Player) Play(strat strategy.Strategy, c chan int) {
 		switch nextMove {
 		case 0:
 			ok, end = next.GoLeft()
+			fmt.Println("Going left")
 		case 1:
 			ok, end = next.GoRight()
+			fmt.Println("Going right")
 		case 2:
 			ok, end = next.GoUp()
+			fmt.Println("Going up")
 		default:
 			ok, end = next.GoDown()
+			fmt.Println("Going down")
+		}
+
+		PlaceNewValue(&next)
+
+		if next.IsGameOver() {
+			finish = true
 		}
 
 		// I can't keep playing
@@ -52,25 +61,23 @@ func (p *Player) Play(strat strategy.Strategy, c chan int) {
 			p.Score = next.Score
 
 			//next.PrettyPrint()
-		}
+			switch end.Error() {
+			case "movement not possible":
+			case "try again":
+				continue
+			case "can't place another value, the game is over":
+				//fmt.Println("Final score:", current.Score)
+				//fmt.Println("Board:")
+				//current.PrettyPrint()
+				finish = true
 
-		//fmt.Println(end.Error())
-		switch end.Error() {
-		case "Movement not possible!":
-		case "Try again!":
-			continue
-		case "I can't place another value, the game is over!":
-			//fmt.Println("Final score:", current.Score)
-			//fmt.Println("Board:")
-			//current.PrettyPrint()
-			finish = true
+				// Send score through channel
+				c <- current.Score
 
-			// Send score through channel
-			c <- current.Score
-
-		default:
-			fmt.Println("Unexpected error, finishing game. Score so far:", current.Score)
-			finish = true
+			default:
+				fmt.Println("Unexpected error, finishing game. Score so far:", current.Score)
+				finish = true
+			}
 		}
 
 	}

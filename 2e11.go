@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/leandroguillen/2e11/aiplayer"
-	"github.com/leandroguillen/2e11/strategy"
+	"github.com/leandroguillen/2e11/engine"
 )
 
 func main() {
@@ -17,12 +16,12 @@ func main() {
 
 	c := make(chan int)
 
-	s := strategy.Recursive{}
-	fmt.Println("Strategy:", s.Name(), "...")
+	s := engine.Recursive{}
+	fmt.Println("Strategy:", s.Name())
 
 	// for i := 0; i < games; i++ {
 	// 	go func(c chan int) {
-	p := aiplayer.Player{Name: "Paco"}
+	p := engine.Player{Name: "Paco"}
 	p.Init()
 	p.Play(s, c)
 	// 	}(c)

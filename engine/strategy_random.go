@@ -1,13 +1,14 @@
-package strategy
+package engine
 
-import "math/rand"
-import "time"
-import "github.com/leandroguillen/2e11/engine"
+import (
+	"math/rand"
+	"time"
+)
 
 type Random struct {
 }
 
-func (s Random) GetNextMove(g *engine.Game) int {
+func (s Random) GetNextMove(g *Game) int {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	return r.Intn(4)
 }

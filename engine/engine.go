@@ -15,8 +15,8 @@ func NewGame(size int) Game {
 	g := Game{Board: b, Score: 0, Moves: 0, Size: size, Valid: true}
 	g.ClearBoard()
 	// Start off with a couple of cells filled
-	placeNewValue(&g)
-	placeNewValue(&g)
+	PlaceNewValue(&g)
+	PlaceNewValue(&g)
 	return g
 }
 
@@ -32,7 +32,7 @@ func getNewValue() int {
 	return value
 }
 
-func placeNewValue(g *Game) error {
+func PlaceNewValue(g *Game) error {
 	value := getNewValue()
 	x, y := getNewPos(g.Size)
 

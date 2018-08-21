@@ -1,22 +1,20 @@
-package strategy
+package engine
 
 import (
-	// "fmt"
-	"github.com/leandroguillen/2e11/engine"
 	"math"
 )
 
 type Recursive struct {
 }
 
-func (s Recursive) GetNextMove(g *engine.Game) int {
-	left := engine.Game{}
+func (s Recursive) GetNextMove(g *Game) int {
+	left := Game{}
 	left = *g
-	right := engine.Game{}
+	right := Game{}
 	right = *g
-	up := engine.Game{}
+	up := Game{}
 	up = *g
-	down := engine.Game{}
+	down := Game{}
 	down = *g
 
 	left.GoLeft()
