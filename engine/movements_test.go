@@ -12,8 +12,8 @@ func TestGoRight(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{1, 0},
-			[]int{0, 0},
+			{1, 0},
+			{0, 0},
 		},
 	}
 	b := &Game{
@@ -22,8 +22,8 @@ func TestGoRight(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 1},
-			[]int{0, 0},
+			{0, 1},
+			{0, 0},
 		},
 	}
 
@@ -43,8 +43,8 @@ func TestGoDown(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{1, 0},
-			[]int{0, 0},
+			{1, 0},
+			{0, 0},
 		},
 	}
 	b := &Game{
@@ -53,8 +53,8 @@ func TestGoDown(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 0},
-			[]int{1, 0},
+			{0, 0},
+			{1, 0},
 		},
 	}
 
@@ -74,8 +74,8 @@ func TestGoLeft(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 1},
-			[]int{0, 0},
+			{0, 1},
+			{0, 0},
 		},
 	}
 	b := &Game{
@@ -84,8 +84,8 @@ func TestGoLeft(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{1, 0},
-			[]int{0, 0},
+			{1, 0},
+			{0, 0},
 		},
 	}
 
@@ -105,8 +105,8 @@ func TestGoUp(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 0},
-			[]int{0, 1},
+			{0, 0},
+			{0, 1},
 		},
 	}
 	b := &Game{
@@ -115,8 +115,8 @@ func TestGoUp(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 1},
-			[]int{0, 0},
+			{0, 1},
+			{0, 0},
 		},
 	}
 

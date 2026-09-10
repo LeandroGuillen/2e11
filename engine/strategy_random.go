@@ -1,16 +1,12 @@
 package engine
 
-import (
-	"math/rand"
-	"time"
-)
+import "math/rand/v2"
 
 type Random struct {
 }
 
 func (s Random) GetNextMove(g *Game) int {
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	return r.Intn(4)
+	return rand.IntN(4)
 }
 
 func (s Random) Name() string {
