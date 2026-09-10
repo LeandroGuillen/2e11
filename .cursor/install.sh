@@ -1,26 +1,32 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# 2e11 is a legacy, pre-modules Go project: it has no go.mod and its packages
-# import each other via the canonical path github.com/leandroguillen/2e11/...
-# Building and testing therefore require GOPATH mode with the checkout exposed
-# under $GOPATH/src/github.com/leandroguillen/2e11.
+# Pin the Go toolchain to a current release. The base image ships an older
+# apt-provided Go, so install the official binary distribution when the pinned
+# version is not already present, then expose it ahead of the system Go.
+GO_VERSION="1.27.1"
+GO_ROOT="/usr/local/go"
 
-# Disable modules for this toolchain (persisted in the go env config file).
-go env -w GO111MODULE=off
+current="$("$GO_ROOT/bin/go" version 2>/dev/null | awk '{print $3}' || true)"
+if [ "$current" != "go${GO_VERSION}" ]; then
+  tmp="$(mktemp -d)"
+  curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" -o "$tmp/go.tar.gz"
+  sudo rm -rf "$GO_ROOT"
+  sudo tar -C /usr/local -xzf "$tmp/go.tar.gz"
+  rm -rf "$tmp"
+fi
 
-GOPATH="$(go env GOPATH)"
-PKG_PARENT="$GOPATH/src/github.com/leandroguillen"
-PKG_LINK="$PKG_PARENT/2e11"
+# /usr/local/bin precedes /usr/bin on PATH, so these symlinks make the pinned
+# toolchain the default `go`/`gofmt` without editing shell profiles.
+sudo ln -sfn "$GO_ROOT/bin/go" /usr/local/bin/go
+sudo ln -sfn "$GO_ROOT/bin/gofmt" /usr/local/bin/gofmt
+hash -r 2>/dev/null || true
 
-mkdir -p "$PKG_PARENT"
-# Point the canonical import path at this checkout so edits are picked up live.
-ln -sfn "$PWD" "$PKG_LINK"
-
-# Validate the toolchain end-to-end from within GOPATH.
-cd "$PKG_LINK"
+# Module-mode project (has go.mod): build and test straight from the checkout.
+go version
+go mod download
 go build ./...
 go vet ./...
 go test ./...
 
-echo "2e11 environment ready. Build/test from: $PKG_LINK"
+echo "2e11 environment ready (Go ${GO_VERSION}, module mode)."
