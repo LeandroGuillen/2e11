@@ -1,8 +1,9 @@
 package engine
 
-import "math/rand"
-import "time"
-import "errors"
+import (
+	"errors"
+	"math/rand/v2"
+)
 
 // NewGame returns a new initialized game
 func NewGame(size int) Game {
@@ -21,8 +22,7 @@ func NewGame(size int) Game {
 }
 
 func getNewValue() int {
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	chance := r.Intn(10)
+	chance := rand.IntN(10)
 	value := 0
 	if chance <= 1 {
 		value = 4

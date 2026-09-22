@@ -1,7 +1,9 @@
 package engine
 
-import "testing"
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestReflect(t *testing.T) {
 	g := NewGame(4)
@@ -88,8 +90,8 @@ func TestFreeCells(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{1, 1},
-			[]int{1, 1},
+			{1, 1},
+			{1, 1},
 		},
 	}
 	b := &Game{
@@ -98,8 +100,8 @@ func TestFreeCells(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 1},
-			[]int{1, 1},
+			{0, 1},
+			{1, 1},
 		},
 	}
 	c := &Game{
@@ -108,8 +110,8 @@ func TestFreeCells(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 1},
-			[]int{1, 0},
+			{0, 1},
+			{1, 0},
 		},
 	}
 	if freeCells(a) {
@@ -130,9 +132,9 @@ func TestHasEqualAdjacent(t *testing.T) {
 		Size:  3,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 0, 0},
-			[]int{1, 1, 0},
-			[]int{0, 0, 0},
+			{0, 0, 0},
+			{1, 1, 0},
+			{0, 0, 0},
 		},
 	}
 	b := &Game{
@@ -141,9 +143,9 @@ func TestHasEqualAdjacent(t *testing.T) {
 		Size:  3,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 2, 0},
-			[]int{1, 0, 1},
-			[]int{0, 3, 0},
+			{0, 2, 0},
+			{1, 0, 1},
+			{0, 3, 0},
 		},
 	}
 	c := &Game{
@@ -152,9 +154,9 @@ func TestHasEqualAdjacent(t *testing.T) {
 		Size:  3,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 2, 0},
-			[]int{3, 5, 1},
-			[]int{0, 0, 0},
+			{0, 2, 0},
+			{3, 5, 1},
+			{0, 0, 0},
 		},
 	}
 
@@ -176,9 +178,9 @@ func TestAreThereAdjacentCells(t *testing.T) {
 		Size:  3,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 0, 0},
-			[]int{1, 1, 0},
-			[]int{0, 0, 0},
+			{0, 0, 0},
+			{1, 1, 0},
+			{0, 0, 0},
 		},
 	}
 	b := &Game{
@@ -187,9 +189,9 @@ func TestAreThereAdjacentCells(t *testing.T) {
 		Size:  3,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 2, 0},
-			[]int{1, 0, 1},
-			[]int{0, 3, 1},
+			{0, 2, 0},
+			{1, 0, 1},
+			{0, 3, 1},
 		},
 	}
 	c := &Game{
@@ -198,9 +200,9 @@ func TestAreThereAdjacentCells(t *testing.T) {
 		Size:  3,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 2, 2},
-			[]int{3, 5, 1},
-			[]int{0, 0, 0},
+			{0, 2, 2},
+			{3, 5, 1},
+			{0, 0, 0},
 		},
 	}
 	d := &Game{
@@ -209,9 +211,9 @@ func TestAreThereAdjacentCells(t *testing.T) {
 		Size:  3,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 2, 7},
-			[]int{3, 5, 1},
-			[]int{2, 1, 0},
+			{0, 2, 7},
+			{3, 5, 1},
+			{2, 1, 0},
 		},
 	}
 

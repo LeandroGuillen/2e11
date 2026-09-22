@@ -1,12 +1,10 @@
 package engine
 
-import "math/rand"
-import "time"
+import "math/rand/v2"
 
 func getNewPos(size int) (x, y int) {
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	x = r.Intn(size)
-	y = r.Intn(size)
+	x = rand.IntN(size)
+	y = rand.IntN(size)
 	return
 }
 

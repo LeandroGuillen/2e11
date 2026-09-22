@@ -12,8 +12,8 @@ func TestEquals(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{1, 0},
-			[]int{0, 0},
+			{1, 0},
+			{0, 0},
 		},
 	}
 
@@ -23,8 +23,8 @@ func TestEquals(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{1, 0},
-			[]int{0, 0},
+			{1, 0},
+			{0, 0},
 		},
 	}
 
@@ -43,8 +43,8 @@ func TestCopyGame(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{1, 0},
-			[]int{0, 0},
+			{1, 0},
+			{0, 0},
 		},
 	}
 	copy1 := aGame.Copy()
@@ -74,8 +74,8 @@ func TestClearBoard(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{1, 0},
-			[]int{0, 1},
+			{1, 0},
+			{0, 1},
 		},
 	}
 
@@ -85,8 +85,8 @@ func TestClearBoard(t *testing.T) {
 		Size:  2,
 		Valid: true,
 		Board: [][]int{
-			[]int{0, 0},
-			[]int{0, 0},
+			{0, 0},
+			{0, 0},
 		},
 	}
 
